@@ -1,0 +1,52 @@
+### Rejestracja użytkownika
+POST http://localhost:3000/api/user/auth/register
+Content-Type: application/json
+
+{
+  "name": "Jan",
+  "surname": "Kowalski",
+  "email": "jan.kowalski@example.com",
+  "username": "janek",
+  "password": "haslo123",
+  "confirmPassword": "haslo123",
+  "address": "ul. Warszawska 1",
+  "city": "Warszawa",
+  "gender": "male"
+}
+
+###
+
+### Logowanie użytkownika (email)
+POST http://localhost:3000/api/user/auth/login
+Content-Type: application/json
+
+{
+  "emailUsername": "jan.kowalski@example.com",
+  "password": "haslo123"
+}
+
+###
+
+### Logowanie użytkownika (username)
+POST http://localhost:3000/api/user/auth/login
+Content-Type: application/json
+
+{
+  "emailUsername": "janek",
+  "password": "haslo123"
+}
+
+
+### Get all categories
+GET http://localhost:3000/api/category/categories
+Accept: application/json
+
+###
+
+### Create a new category
+POST http://localhost:3000/api/category/createCategory
+Content-Type: application/json
+
+{
+  "name": "Elektronika"
+}

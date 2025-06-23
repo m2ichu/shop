@@ -1,0 +1,29 @@
+### Create Product (needs Authorization header with Bearer token)
+POST http://localhost:3000/api/product/createProduct
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODU5YjQ4NDA1NWYzNzhmNTk5NGE4MTgiLCJpYXQiOjE3NTA3MTIzMjYsImV4cCI6MTc1MDcxOTUyNn0.073iGJ5MTTKxrvvb0_KGFohgIBmBdBRZvR0Qtwsnn8o
+
+{
+  "title": "Sample Product",
+  "description": "This is a sample product",
+  "price": 99.99,
+  "images": ["https://example.com/image1.jpg", "https://example.com/image2.jpg"],
+  "amount": 10,
+  "category": "Elektronika",
+  "subCategory": "Smartphones"
+}
+
+### Get All Products (with pagination)
+GET http://localhost:3000/api/products?page=1
+
+### Get Products by User (username in query)
+GET http://localhost:3000/api/products/user?user=johndoe&page=1
+
+### Get Product by ID (replace :id)
+GET http://localhost:3000/api/products/user/60d2fbb51c4ae462e8d9f4d2
+
+### Get Products by Category or SubCategory (IDs expected in query)
+GET http://localhost:3000/api/products/category?category=60d2fa7f1c4ae462e8d9f4d0&page=1
+
+GET http://localhost:3000/api/products/category?subCategory=60d2fa9a1c4ae462e8d9f4d1&page=1
+
