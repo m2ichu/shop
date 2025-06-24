@@ -6,7 +6,7 @@ dotenv.config({ path: '.env' })
 
 export const register = async (req, res) => {
 	try {
-		const { name, surname, email, username, password, address, confirmPassword, gender,city } = req.body
+		const { name, surname, email, username, password, address, confirmPassword, gender, city } = req.body
 
 		if (
 			!name ||
@@ -95,4 +95,43 @@ export const login = async (req, res) => {
 		console.error('Login error:', error)
 		res.status(500).json({ message: 'Server error' })
 	}
+}
+
+export const changeData = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.userId)
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' })
+    }
+
+    if (req.body.email && req.body.email !== user.email) {
+      const emailOwner = await User.findOne({ email: req.body.email })
+      if (emailOwner && emailOwner._id.toString() !== user._id.toString()) {
+        return res.status(400).json({ message: 'Email is already in use by another user' })
+      }
+      user.email = req.body.email
+    }
+
+    if (req.body.username && req.body.username !== user.username) {
+      const usernameOwner = await User.findOne({ username: req.body.username })
+      if (usernameOwner && usernameOwner._id.toString() !== user._id.toString()) {
+        return res.status(400).json({ message: 'Username is already in use by another user' })
+      }
+      user.username = req.body.username
+    }
+
+    user.name = req.body.name || user.name
+    user.surname = req.body.surname || user.surname
+    user.address = req.body.address || user.address
+    user.gender = req.body.gender || user.gender
+    user.city = req.body.city || user.city
+    user.image = req.body.image || user.image
+
+    await user.save()
+
+    res.status(200).json({ message: 'User data updated successfully', data: user })
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ message: 'Server error' })
+  }
 }
